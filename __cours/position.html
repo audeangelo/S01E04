@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS positions</title>
+  <style>
+    * { margin: 0;}
+    body { height: 300vh; }
+    div { height: 225px; width: 400px; }
+    .pos-static { background: rgba(255, 0, 0, .8); }
+    .pos-relative1 { background: rgba(0, 255, 0, .8); }
+    .pos-relative2 { background: rgba(0, 0, 255, .8); }
+    .pos-absolute { background: rgba(0, 0, 125, .8); color: #fff; }
+    .pos-fixed { background: rgba(255, 0, 255, .8); }
+    .pos-sticky { background: rgba(0, 255, 255, .8); }
+
+    .pos-relative1 {
+      position: relative;
+      top: -50px;
+      left: 50px;
+      z-index: 2;
+    }
+    .pos-relative2 {
+      position: relative;
+      top: -100px;
+      right: 50px;
+      /* z-index: -1; */
+    }
+    .pos-absolute {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+    .pos-fixed {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+    }
+    .pos-sticky {
+      position: sticky;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="pos-static">STATIC</div>
+
+  <div class="pos-relative1">RELATIVE1</div>
+  <div class="pos-relative2">
+    RELATIVE2
+
+    <p class="pos-absolute">ABSOLUTE</p>
+  </div>
+
+  <div class="pos-absolute">ABSOLUTE</div>
+  <div class="pos-static">STATIC</div>
+
+  <div class="pos-fixed">FIXED</div>
+
+  <div class="pos-sticky">STICKY</div>
+  <div class="pos-static">STATIC</div>
+</body>
+</html>

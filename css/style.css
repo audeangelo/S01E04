@@ -1,0 +1,219 @@
+:root {
+  --color-primary: #00c8be;
+  --color-bg: #b0b;
+  --color-border: #fab;
+}
+
+html {
+  /*
+    technique du « 62.5% »
+
+    par défaut 16px * 62.5% = 10px
+    → ça nous permet d'avoir 10px en police de base (par défaut)
+
+    utilisation :
+    je veux un titre de 32px, je vais avoir 3.2rem
+  */
+  font-size: 62.5%; /* base = 10px */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Raleway', sans-serif;
+  /* pour tous les éléments dont je ne précise pas le font-size,
+  je la définis à 16px */
+  font-size: 1.6rem;
+  /*
+    vh = _viewport height_ = hauteur de la zone d'affichage
+
+    unité relative → 1 vh = 1% de la taille du viewport
+
+    > `vw` = = _viewport width_ = largeur de la zone d'affichage
+  */
+  min-height: 100vh; /* la totalité de la hauteur de la zone */
+}
+
+.header {
+  background: var(--color-primary);
+  color: #fff;
+  /*
+    em sur le padding, margin, width…
+    relatif à la taille de la police de cet élément
+
+    utile pour faire varier les espacements en fonction
+    de la taille de la police (conserver un design particulier…)
+  */
+  padding: 1.6rem; /* défaut : 1.6 * 10px */
+
+  /* positionnement */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+/*
+  on utilise la méthodologie BEM
+  (Block Element Modifier)
+
+  pour un élément (descendant) du block (parent),
+  j'utilise `.parent__descendant`
+*/
+.header__title {
+  /* em = unité relative → 2 fois la taille de la police du parent */
+  font-size: 3.2rem; /* 3.2 * 10px (base) = 32px */
+}
+.header__subtitle {
+  /*
+    ATTENTION ! relatif à la taille de la police du parent !
+    ici le parent à 32px
+    x * 32px = 13px → x = 13/32
+  */
+  /* font-size: 0.4062em; */
+  /*
+    on voit que c'est pas forcément des em ! on doit penser
+    à chaque taille des polices parentes…
+    Une autre solution : rem (root em ; root = <html>)
+
+    x * 16px = 13px → x = 13/16
+  */
+  font-size: 1.3rem; /* 1.3 * 10 */
+}
+
+.main {
+  /* je donne tout l'espace disponible du parent (flex) */
+  /* conséquence : le footer est automatiquement
+  repoussé en bas de page */
+  flex-grow: 1;
+}
+.main__title {
+  background: var(--color-bg);
+  color: #fff;
+  font-size: 2.1rem; /* 21px */
+  margin-bottom: 1.6rem; /* 16px */
+  padding: 1.6rem; /* 16px */
+  text-align: center;
+}
+
+.main__sales {
+  background: var(--color-primary);
+  border-radius: 0 8px 8px 0;
+  color: #fff;
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 0.8;
+  text-decoration: none;
+  text-transform: uppercase;
+  
+  /* mettre le texte en vertical */
+  /* CSS4 (attention à la compatibilité) */
+  /* text-orientation: upright;
+  writing-mode: vertical-lr; */
+  /* en attendant, on joue sur la largeur et
+  sur l'endroit des césures (coupure dans les phrases) */
+  padding: 10px;
+  width: 32px;
+  word-break: break-all;
+
+  /* positionnement */
+  position: fixed;
+  top: 25vh;
+  z-index: 1; /* mise en avant plan */
+}
+
+.main__products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 1.6rem;
+  margin: 0 auto 3.2rem;
+  width: 90vw; /* viewport width */
+}
+
+.product {
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  width: 30%;
+
+  /*
+    pour que le `position: absolute;` du badge soit
+    calculé à partir de l'article, je mets celui-ci
+    en `position: relative`
+  */
+  position: relative;
+}
+
+.product__header {
+  display: flex;
+  flex-direction: column;
+}
+.product__title {
+  /* permet de modifier l'ordre des balises HTML;
+  order plus grand que les autres, donc afficher en dernier */
+  order: 1;
+}
+.product__category {
+  border-bottom: 1px solid; /* par défaut, prend la couleur du texte */
+  color: #ccc;
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+  /* text-transform: uppercase; */
+  font-variant: small-caps;
+}
+.product__description {
+  flex-grow: 1;
+  margin-bottom: 16px;
+}
+
+.product__add-to-cart {
+  align-items: center;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  font-size: 1.3rem;
+  justify-content: space-between;
+  padding: 8px;
+  text-decoration: none;
+}
+.product__price {
+  font-size: 1.2em; /* relatif au parent : (1.3 * 10px) * 1.2 = 15.6px */
+  font-weight: 700;
+}
+.product__price--strike {
+  font-size: 1em; /* relatif au parent : (1.3 * 10px) * 1 = 13px */
+  font-weight: 400;
+  text-decoration: line-through;
+}
+
+.product__badge {
+  align-items: center;
+  background: var(--color-bg);
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  font-size: 1rem;
+  font-weight: 700;
+  height: 3rem;
+  justify-content: center;
+  position: absolute;
+  right: -16px;
+  top: -8px;
+  width: 3rem;
+}
+.product__badge--new {
+  background: #2179fd;
+}
+.product__badge--sale {
+  background: #21fd67;
+  color: #000;
+}
+
+.footer {
+  background: var(--color-bg);
+  color: #fff;
+  /* je peux conserver du px pour le « fixer » quelque soit la taille de la police */
+  padding: 16px;
+  text-align: center;
+}
